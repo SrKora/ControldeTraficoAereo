@@ -1,0 +1,13 @@
+Error: Pista vacía, no hay aeronaves que puedan despegar17-06-25 16:21:58
+Error: Ningúna aeronave registrada17-06-25 16:47:10
+Error: Pista vacía, no hay aeronaves que puedan despegar17-06-25 16:47:10
+INFO: Aeronave de Emergencias registrada ID: AS1234 Date: 17-06-25 16:47:10
+INFO: Aeronave aterrizando en pista A1 ID: AS1234 Date: 17-06-25 16:47:10
+Error: Ningúna aeronave registrada17-06-25 16:47:10
+INFO: Aeronave de Emergencias registrada ID: AS1234 Date: 17-06-25 16:49:27
+INFO: Aeronave aterrizando en pista A1 ID: AS1234 Date: 17-06-25 16:49:27
+Error: Pista ocupada, aterrizaje no permitido17-06-25 16:49:27
+INFO: Aeronave despegando ID: AS1234, pista A1 despejada Date: 17-06-25 16:49:27
+INFO: Aeronave Militar registrada ID: ED2345 Date: 17-06-25 16:49:27
+Error: Pista ocupada, aterrizaje no permitido17-06-25 16:49:27
+Error: Pista ocupada, aterrizaje no permitido17-06-25 16:49:27
