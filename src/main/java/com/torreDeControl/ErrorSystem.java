@@ -15,7 +15,7 @@ public class ErrorSystem {
     public String errorLog(String error) {
         String cadena = "";
         try (FileWriter fw = new FileWriter("Log - " + fecha.format(fechaFormatLogName) + ".txt", true)) {
-            cadena = "Error: " + error + fecha.format(fechaFormatContentLog) + "\n";
+            cadena = "Error: " + error + " Date: " + fecha.format(fechaFormatContentLog) + "\n";
             fw.write(cadena);
         } catch (Exception e) {
             System.err.println(e.getMessage());

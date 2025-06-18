@@ -1,14 +1,18 @@
 package com.torreDeControl.naves;
 
+import java.time.LocalDateTime;
+
 public abstract class Aeronave {
     protected final String id;
     protected String tipoAeronave;
     protected int prioridad;
+    protected LocalDateTime fechaAeronave;
 
     public Aeronave(String id, String tipoAeronave, int prioridad) {
         this.id = id;
         this.tipoAeronave = tipoAeronave;
         this.prioridad = prioridad;
+        this.fechaAeronave =  LocalDateTime.now();
     }
 
     @Override
@@ -17,14 +21,6 @@ public abstract class Aeronave {
         cadena += ", Tipo: " + tipoAeronave;
         cadena += ", Prioridad: " + prioridad;
         return cadena;
-    }
-
-    public void solicitarAterrizaje() {
-
-    }
-
-    public void solicitarDespegue(){
-
     }
 
     public String getId() {
@@ -45,5 +41,13 @@ public abstract class Aeronave {
 
     public void setPrioridad(int prioridad) {
         this.prioridad = prioridad;
+    }
+
+    public LocalDateTime getFechaAeronave() {
+        return fechaAeronave;
+    }
+
+    public void setFechaAeronave(LocalDateTime fechaAeronave) {
+        this.fechaAeronave = fechaAeronave;
     }
 }

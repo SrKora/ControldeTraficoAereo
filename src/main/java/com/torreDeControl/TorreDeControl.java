@@ -1,25 +1,35 @@
 package com.torreDeControl;
 
 import com.torreDeControl.naves.Aeronave;
-
-import java.util.ArrayList;
+import java.util.*;
 
 public class TorreDeControl {
-    ArrayList<Aeronave> colaDeAterrizajes = new ArrayList<>();
+    ArrayList<Aeronave> colaDeAterrizaje = new ArrayList<>();
     ArrayList<Aeronave> colaDeDespegues = new ArrayList<>();
     Boolean pista = false;
     Aeronave aeronaveEnPista;
 
     public void registrarAeronaveParaAterrizaje(Aeronave a) {
-        colaDeAterrizajes.add(a);
+        colaDeAterrizaje.add(a);
+
+        colaDeAterrizaje.sort((a2, a1) -> {
+            int cmp = Integer.compare(a1.getPrioridad(), a2.getPrioridad());
+            if (cmp != 0) return cmp;
+            return a1.getFechaAeronave().compareTo(a2.getFechaAeronave());
+        });
     }
 
     public void registrarAeronaveParaDespegue(Aeronave a){
-        colaDeDespegues.addFirst(a);
+        colaDeDespegues.addLast(a);
+
+        colaDeDespegues.sort((a2, a1) -> {
+            int cmp = Integer.compare(a1.getPrioridad(), a2.getPrioridad());
+            if (cmp != 0) return cmp;
+            return a1.getFechaAeronave().compareTo(a2.getFechaAeronave());
+        });
     }
 
     public void procesarSiguienteEvento() {
-
     }
 
     public void liberarPista() {
@@ -30,12 +40,12 @@ public class TorreDeControl {
         naves.stream().map(Aeronave::toString).forEach(System.out::println);
     }
 
-    public ArrayList<Aeronave> getColaDeAterrizajes() {
-        return colaDeAterrizajes;
+    public ArrayList<Aeronave> getColaDeAterrizaje() {
+        return colaDeAterrizaje;
     }
 
-    public void setColaDeAterrizajes(ArrayList<Aeronave> colaDeAterrizajes) {
-        this.colaDeAterrizajes = colaDeAterrizajes;
+    public void setColaDeAterrizaje(ArrayList<Aeronave> colaDeAterrizaje) {
+        this.colaDeAterrizaje = colaDeAterrizaje;
     }
 
     public ArrayList<Aeronave> getColaDeDespegues() {
