@@ -134,7 +134,7 @@ public class Main {
                     case 4:
                         if (!t.getColaDeDespegues().isEmpty()) {
                             // Si la pista está vacía saca una aeronave y la despega
-                            if (t.pista == false) {
+                            if (!t.pista) {
                                 System.out.println("Avión " + t.getColaDeDespegues().getLast().getId() + " ocupando pista");
                                 t.setAeronaveEnPista(t.getColaDeDespegues().getLast());
 
@@ -147,7 +147,7 @@ public class Main {
                                 System.out.println("Aeronave despegando ID: " + t.getAeronaveEnPista().getId()  + " Prioridad: " + t.getAeronaveEnPista().getPrioridad() + ", pista despejada");
                                 t.setAeronaveEnPista(null);
                             // Si no, la pista estará ocupada y despegará el avión que la estaba ocupando
-                            } else if (t.pista) {
+                            } else {
                                 System.out.println("Avión " + t.aeronaveEnPista.getId() + " ocupando pista");
 
                                 System.out.println("Avión " + t.aeronaveEnPista.getId() + " despegando...");
