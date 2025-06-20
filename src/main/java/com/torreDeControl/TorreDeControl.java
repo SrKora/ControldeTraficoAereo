@@ -13,7 +13,6 @@ public class TorreDeControl {
     ArrayList<Aeronave> colaDeDespegues = new ArrayList<>();
     Boolean pista = false;
     Aeronave aeronaveEnPista;
-    Scanner sc = new Scanner(System.in);
 
     ErrorSystem log = new ErrorSystem();
 
@@ -38,29 +37,32 @@ public class TorreDeControl {
     }
 
     public void procesarSiguienteEvento(TorreDeControl t) {
-
-    }
-
-    private void menuInteraccion(TorreDeControl t, int n) {
-        switch (n) {
-            case 1:
-                aterrizarAeronave(t);
-                break;
-            case 2:
-                liberarPista(t);
-                break;
-            case 3:
+        if (t.getColaDeAterrizaje().isEmpty()) {
+            crearAeronave(t, random(4));
+        } else if (t.getColaDeDespegues().isEmpty()) {
+            aterrizarAeronave(t);
+        }  else {
+            if (t.pista) {
+                switch (random(2)){
+                    case 0:
+                        liberarPista(t);
+                        break;
+                    case 1:
+                        despegarAeronave(t);
+                        break;
+                }
+            } else {
                 despegarAeronave(t);
-                break;
+            }
         }
     }
 
     private void despegarAeronave(TorreDeControl t) {
         if (!t.getColaDeDespegues().isEmpty()) {
+            t.setAeronaveEnPista(t.getColaDeDespegues().getLast());
             // Si la pista está vacía saca una aeronave y la despega
             System.out.println("Avión " + t.aeronaveEnPista.getId() + " ocupando pista");
-            if (t.pista == false) {
-                t.setAeronaveEnPista(t.getColaDeDespegues().getLast());
+            if (!t.pista) {
 
                 t.failError();
 
@@ -95,7 +97,7 @@ public class TorreDeControl {
     }
 
     private void liberarPista(TorreDeControl t) {
-        if (t.pista == true) {
+        if (t.pista) {
             t.liberarPista();
 
             // Logs
@@ -116,7 +118,7 @@ public class TorreDeControl {
 
     private void aterrizarAeronave(TorreDeControl t) {
         if (!t.getColaDeAterrizaje().isEmpty()) {
-            if (t.pista == false) {
+            if (!t.pista) {
                 // La pista se ocupa
                 System.out.println("Aeronave " + t.getColaDeAterrizaje().getLast().getId() + " aterrizando...");
                 t.setAeronaveEnPista(t.getColaDeAterrizaje().getLast());
@@ -150,7 +152,7 @@ public class TorreDeControl {
         String id;
         do {
             id = randomID();
-        } while (!id.matches("[A-Z]{1,2}[0-9]{1,4}") && t.comprobarID(id));
+        } while (!id.matches("[A-Z]{1,2}[0-9]{1,4}") || t.comprobarID(id));
         switch (decision) {
             case 1:
                 // Registra nave de Emergencias
@@ -198,7 +200,7 @@ public class TorreDeControl {
         if (random(100) <= 12){
             try {
                 int ms = random(10000) + 3000;
-                System.out.println("Fallo en el sistema tiempos de esperas cambiados, tiempo de espera " + ms/1000 + " seg");
+                System.out.println("Fallo en el sistema. Tiempos de esperas cambiados, tiempo de espera " + ms/1000 + " seg");
                 Thread.sleep(ms);
             } catch (InterruptedException e) {
                 log.errorLog(e.getMessage());
@@ -212,18 +214,9 @@ public class TorreDeControl {
         }
     }
 
-    public boolean comprobarID (String id){
-        for (Aeronave a : colaDeAterrizaje){
-            if (a.getId().equals(id)){
-                return true;
-            }
-        }
-        for (Aeronave a : colaDeDespegues){
-            if (a.getId().equals(id)){
-                return true;
-            }
-        }
-        return false;
+    public boolean comprobarID(String id) {
+        return colaDeAterrizaje.stream().anyMatch(a -> a.getId().equals(id)) ||
+                colaDeDespegues.stream().anyMatch(a -> a.getId().equals(id));
     }
 
     public int random(int n) {

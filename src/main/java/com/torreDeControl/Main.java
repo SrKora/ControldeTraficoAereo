@@ -49,7 +49,7 @@ public class Main {
                         do {
                             System.out.println("Ingresa el ID de la aeronave:   (Ej: IB3721)");
                             id = sc.next();
-                        } while (!id.matches("[A-Z]{1,2}[0-9]{1,4}") && t.comprobarID(id));
+                        } while (!id.matches("[A-Z]{1,2}[0-9]{1,4}") || t.comprobarID(id));
                         switch (decision) {
                             case 1:
                                 // Registra nave de Emergencias
@@ -83,7 +83,7 @@ public class Main {
                         break;
                     case 2:
                         if (!t.getColaDeAterrizaje().isEmpty()) {
-                            if (t.pista == false) {
+                            if (!t.pista) {
                                 // La pista se ocupa
                                 System.out.println("Aeronave " + t.getColaDeAterrizaje().getLast().getId() + " aterrizando...");
                                 t.setAeronaveEnPista(t.getColaDeAterrizaje().getLast());
@@ -113,7 +113,7 @@ public class Main {
                         }
                         break;
                     case 3:
-                        if (t.pista == true) {
+                        if (t.pista) {
                             t.liberarPista();
 
                             // Logs
